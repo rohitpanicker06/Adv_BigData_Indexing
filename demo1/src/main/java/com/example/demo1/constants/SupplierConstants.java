@@ -14,4 +14,7 @@ public class SupplierConstants {
 
     public static final String NONE_MATCHED_HEADER = "If-None-Match";
 
+    public static final String E_TAG = "eTag";
+    public static final String URI_PLAN = "/plan/";
+
 }

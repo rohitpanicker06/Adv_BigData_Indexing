@@ -1,5 +1,6 @@
 package com.example.demo1.service;
 
+import com.example.demo1.constants.SupplierConstants;
 import com.example.demo1.dao.PlanDAO;
 import com.example.demo1.errors.custom.pattern.factory.ApiResponseFactory;
 import com.example.demo1.suppliers.FunctionalLambdas;
@@ -46,13 +47,13 @@ public class PlanManagementService {
     }
     private ResponseEntity<Object> createPlan(JSONObject planJson, String planKey) throws URISyntaxException {
         String eTag = savePlan(planKey, planJson.toString());
-        URI location = new URI("/plan/" + planJson.optString("objectId"));
-        return ResponseEntity.created(location).eTag(eTag).body(new JSONObject().put("message", "plan created successfully!").put("planId", planJson.optString("objectId")).toString());
+        URI location = new URI(SupplierConstants.URI_PLAN + planJson.optString(SupplierConstants.OBJECT_ID));
+        return ResponseEntity.created(location).eTag(eTag).body(ApiResponseFactory.getPlanCreatedSuccessfully(planJson.optString("objectId")));
     }
     public String savePlan(String key, String planJsonString) {
         String newETag = DigestUtils.md5Hex(planJsonString);
         planDAO.hSet(key, key, planJsonString);
-        planDAO.hSet(key, "eTag", newETag);
+        planDAO.hSet(key, SupplierConstants.E_TAG, newETag);
         return newETag;
     }
 
@@ -61,7 +62,7 @@ public class PlanManagementService {
     }
 
     public String getETag(String key) {
-        return planDAO.hGet(key, "eTag");
+        return planDAO.hGet(key, SupplierConstants.E_TAG);
     }
 
     public JSONObject getPlanByKey(String key) {
@@ -70,7 +71,7 @@ public class PlanManagementService {
     }
 
     public ResponseEntity<Object> getPlanById( HttpHeaders headers, String planId){
-        String key = "plan_" + planId;
+        String key = FunctionalLambdas.planIdGeneratorFunction.apply(planId);
         if (!checkIfKeyExists(key)) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ApiResponseFactory.getPlanNotFoundError(key));
         }
@@ -88,7 +89,7 @@ public class PlanManagementService {
 
     public ResponseEntity<Object> deletePlanById(String planId)
     {
-        String key = "plan_" + planId;
+        String key = FunctionalLambdas.planIdGeneratorFunction.apply(planId);
         if (!checkIfKeyExists(key)) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ApiResponseFactory.getPlanNotFoundError(key));
         }

@@ -43,4 +43,10 @@ public class ApiResponseFactory {
                 HttpStatus.INTERNAL_SERVER_ERROR.value(), HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase(),
                 null ,null);
     }
+
+    public static ApiResponse getPlanCreatedSuccessfully(String planId) {
+        return new ApiResponse(
+               HttpStatus.CREATED.value(), null, "plan created successfully!",
+                null, planId);
+    }
 }

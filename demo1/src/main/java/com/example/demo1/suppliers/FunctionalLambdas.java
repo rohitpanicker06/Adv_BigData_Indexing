@@ -21,4 +21,8 @@ public class FunctionalLambdas {
     public static final Function<JSONObject, String> planKeyGeneratorFunction = (jsonObject)-> jsonObject.optString(SupplierConstants.OBJECT_TYPE) + "_" + jsonObject.optString(SupplierConstants.OBJECT_ID);
 
     public static final Supplier<ResponseEntity<Object>> planExistsResponseSupplier = () -> ResponseEntity.status(HttpStatus.CONFLICT).body(new JSONObject().put("error", "plan already exists!").toString());
+
+    public static final Function<String, String> planIdGeneratorFunction = (planId)->  "plan_" + planId;
+
+
 }
