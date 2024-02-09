@@ -11,7 +11,7 @@ public class RequestBodyEmptyError implements ErrorHandlingStrategy {
     public ApiResponse handle(ApiResponse apiError) {
         apiError.setStatus(400);
         apiError.setError(HttpStatus.BAD_REQUEST.getReasonPhrase());
-        apiError.setDebugMessage("Request Body is Empty");
+        apiError.setMessage("Request Body is Empty");
         apiError.setTimestamp(LocalDateTime.now());
         return apiError;
     }

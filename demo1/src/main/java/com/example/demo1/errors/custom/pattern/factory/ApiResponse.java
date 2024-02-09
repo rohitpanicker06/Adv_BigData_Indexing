@@ -13,7 +13,7 @@ public class ApiResponse {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:mm:ss")
     private LocalDateTime timestamp;
     private String error;
-    private String debugMessage;
+    private String message;
 
     private String key;
     private String planId;
@@ -32,27 +32,27 @@ public class ApiResponse {
         this();
         this.status = status;
         this.error = "Unexpected error";
-        this.debugMessage = ex.getLocalizedMessage();
+        this.message = ex.getLocalizedMessage();
     }
 
     public ApiResponse(int status, String error, Throwable ex) {
         this();
         this.status = status;
         this.error = error;
-        this.debugMessage = ex.getLocalizedMessage();
+        this.message = ex.getLocalizedMessage();
     }
 
     public ApiResponse(int status, String error, String debugMessage) {
         this();
         this.status = status;
         this.error = error;
-        this.debugMessage = debugMessage;
+        this.message = debugMessage;
     }
     public ApiResponse(int status, String error, String debugMessage, String key) {
         this();
         this.status = status;
         this.error = error;
-        this.debugMessage = debugMessage;
+        this.message = debugMessage;
         this.key = key;
     }
 
@@ -60,7 +60,7 @@ public class ApiResponse {
         this();
         this.status = status;
         this.error = error;
-        this.debugMessage = debugMessage;
+        this.message = debugMessage;
         this.key = key;
         this.planId = objectId;
     }
