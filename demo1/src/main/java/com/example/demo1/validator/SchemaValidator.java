@@ -1,6 +1,6 @@
 package com.example.demo1.validator;
 
-import com.example.demo1.constants.SupplierConstants;
+import com.example.demo1.suppliers.FunctionalLambdas;
 import jakarta.annotation.PostConstruct;
 import org.everit.json.schema.ValidationException;
 import org.springframework.stereotype.Service;
@@ -10,13 +10,11 @@ import org.json.JSONObject;
 import org.json.JSONTokener;
 import java.io.InputStream;
 import java.util.function.Function;
-import java.util.function.Supplier;
 
 @Service
 public class SchemaValidator {
     private final Function<String, Schema> schemaLoader;
     private Schema schema;
-    private final Supplier<String> schemaFileNameSupplier = ()->{return SupplierConstants.SCHEMA_NAME;};
 
     public SchemaValidator() {
         this.schemaLoader = this::loadSchema;
@@ -24,7 +22,7 @@ public class SchemaValidator {
 
     @PostConstruct
     public void init() {
-        this.schema = schemaLoader.apply(schemaFileNameSupplier.get());
+        this.schema = schemaLoader.apply(FunctionalLambdas.schemaFileNameSupplier.get());
     }
 
     private Schema loadSchema(String path) {
