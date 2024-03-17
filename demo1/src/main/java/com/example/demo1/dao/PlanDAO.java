@@ -15,6 +15,13 @@ public class PlanDAO {
 
     public void hSet(String key, String field, String value) {
         jedis.hset(key, field, value);
+
+
+    }
+
+    public void set(String key, String value)
+    {
+        jedis.set(key, value);
     }
 
     public boolean checkIfExists(String key) {

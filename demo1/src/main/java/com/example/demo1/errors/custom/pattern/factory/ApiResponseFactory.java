@@ -2,7 +2,11 @@ package com.example.demo1.errors.custom.pattern.factory;
 
 
 import org.everit.json.schema.ValidationException;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+
+import java.util.Date;
 
 public class ApiResponseFactory {
 
@@ -13,7 +17,7 @@ public class ApiResponseFactory {
                 "Request Body Cannot be Empty");
     }
 
-    public static ApiResponse getSchemaValidationError(ValidationException e) {
+    public static ApiResponse getSchemaValidationError(Exception e) {
         return new ApiResponse(
                 HttpStatus.BAD_REQUEST.value(),
                 HttpStatus.BAD_REQUEST.getReasonPhrase() + "- Request Body does not confine to the required schema",
@@ -48,5 +52,29 @@ public class ApiResponseFactory {
         return new ApiResponse(
                HttpStatus.CREATED.value(), null, "plan created successfully!",
                 null, planId);
+    }
+
+    public static ApiResponse getPlanUpdatedSuccessfully(String planId) {
+        return new ApiResponse(
+                HttpStatus.CREATED.value(), null, "plan updated successfully!",
+                null, planId);
+    }
+
+    public static ApiResponse getEtagParsingException(String planId) {
+        return new ApiResponse(
+                HttpStatus.BAD_REQUEST.value(), null, "ETag value is invalid or not a string",
+                null, planId);
+    }
+
+    public static ApiResponse getEtagMissing(String planId) {
+        return new ApiResponse(
+                HttpStatus.BAD_REQUEST.value(), null, "Please provide Etag value",
+                null, planId);
+    }
+
+    public static ApiResponse getPreConditionFailedForEtag(String planId, String eTag)
+    {
+
+        return new ApiResponse(HttpStatus.PRECONDITION_FAILED.value(), null, "Etag does not match",null, planId, eTag);
     }
 }

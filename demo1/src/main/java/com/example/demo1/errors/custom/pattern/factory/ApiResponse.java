@@ -18,6 +18,8 @@ public class ApiResponse {
     private String key;
     private String planId;
 
+    private String etag;
+
 
     public ApiResponse() {
         timestamp = LocalDateTime.now();
@@ -63,6 +65,16 @@ public class ApiResponse {
         this.message = debugMessage;
         this.key = key;
         this.planId = objectId;
+    }
+
+    public ApiResponse(int status, String error, String debugMessage, String key, String objectId, String etag) {
+        this();
+        this.status = status;
+        this.error = error;
+        this.message = debugMessage;
+        this.key = key;
+        this.planId = objectId;
+        this.etag = etag;
     }
 
     //this was done for for implementing strategy pattern if needed.

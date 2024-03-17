@@ -21,7 +21,7 @@
         "objectType": {
           "type": "string",
           "enum": [
-            "membercostshare"
+            "membercostshare", "membercostshareabc"
           ]
         }
       },
@@ -52,7 +52,7 @@
               "objectType": {
                 "type": "string",
                 "enum": [
-                  "service"
+                  "service", "serviceabc"
                 ]
               },
               "name": {
@@ -86,7 +86,7 @@
               "objectType": {
                 "type": "string",
                 "enum": [
-                  "membercostshare"
+                  "membercostshare" , "membercostshareabc"
                 ]
               }
             },
@@ -109,7 +109,7 @@
           "objectType": {
             "type": "string",
             "enum": [
-              "planservice"
+              "planservice", "planserviceabc"
             ]
           }
         },
